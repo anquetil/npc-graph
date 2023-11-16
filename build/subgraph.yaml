@@ -1,6 +1,6 @@
 specVersion: 0.0.5
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum
     name: Character
@@ -17,8 +17,8 @@ dataSources:
         - NPC
       abis:
         - name: Character
-          file: ./abis/Character.json
+          file: Character/abis/Character.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/character.ts
+      file: Character/Character.wasm
