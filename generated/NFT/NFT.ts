@@ -110,9 +110,9 @@ export class Transfer__Params {
   }
 }
 
-export class Character extends ethereum.SmartContract {
-  static bind(address: Address): Character {
-    return new Character("Character", address);
+export class NFT extends ethereum.SmartContract {
+  static bind(address: Address): NFT {
+    return new NFT("NFT", address);
   }
 
   balanceOf(owner: Address): BigInt {

@@ -8,9 +8,8 @@ import {
 } from "matchstick-as/assembly/index"
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { Approval } from "../generated/schema"
-import { Approval as ApprovalEvent } from "../generated/Character/Character"
-import { handleApproval } from "../src/character"
-import { createApprovalEvent } from "./character-utils"
+import { handleApproval } from "../src/nft"
+import { createApprovalEvent } from "./nft-util"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

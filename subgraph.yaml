@@ -3,12 +3,12 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Character
-    network: base
+    name: NFT
+    network: goerli
     source:
-      address: "0xadBc7EC633B78dc4407215D56Eb0861dD7c51431"
-      abi: Character
-      startBlock: 4176471
+      address: "0x4dD30A31962431da2e7359de2527eeD09902B65F"
+      abi: NFT
+      startBlock: 10151117
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -16,9 +16,29 @@ dataSources:
       entities:
         - NPC
       abis:
-        - name: Character
-          file: ./abis/Character.json
+        - name: NFT
+          file: ./abis/NFT.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
-      file: ./src/character.ts
+      file: ./src/NFT.ts
+  - kind: ethereum
+    name: ERC6551Registry
+    network: goerli
+    source:
+      address: "0x000000006551c19487814612e58FE06813775758"
+      abi: ERC6551Registry
+      startBlock: 10151117
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NPC
+      abis:
+        - name: ERC6551Registry
+          file: ./abis/ERC6551Registry.json
+      eventHandlers:
+        - event: ERC6551AccountCreated(address,indexed address,bytes32,uint256,indexed address,indexed uint256)
+          handler: handleAccountCreated
+      file: ./src/ERC6551Registry.ts

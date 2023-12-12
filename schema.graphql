@@ -1,4 +1,6 @@
-type NPC @entity(immutable: true) {
-   id: Bytes!
+type NPC @entity {
+   id: ID! # tokenID
    owner: Bytes! # address
+   deployed: Boolean!
+   TBAAddress: Bytes # address, deterministic so always known, not sure how do it tbh
 }
