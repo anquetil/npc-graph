@@ -4,7 +4,7 @@ import {
 import {
   NPC
 } from "../generated/schema"
-import {  Address, BigInt, Bytes } from "@graphprotocol/graph-ts";
+import {  Address, BigInt } from "@graphprotocol/graph-ts";
 
 export function handleAccountCreated(event: ERC6551AccountCreatedEvent): void {
    if (event.params.tokenContract == Address.fromString("0x4dD30A31962431da2e7359de2527eeD09902B65F")){

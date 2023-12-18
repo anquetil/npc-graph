@@ -4,3 +4,9 @@ type NPC @entity {
    deployed: Boolean!
    TBAAddress: Bytes # address, deterministic so always known, not sure how do it tbh
 }
+
+type Trait @entity {
+   id: ID!
+   rleBytes: Bytes!
+   name: String!
+} 

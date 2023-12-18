@@ -43,3 +43,23 @@ dataSources:
             address,indexed uint256)
           handler: handleAccountCreated
       file: ERC6551Registry/ERC6551Registry.wasm
+  - kind: ethereum
+    name: TraitRegistry
+    network: goerli
+    source:
+      address: "0x26431F48C445A04bb526FE403247DEafb0006206"
+      abi: TraitRegistry
+      startBlock: 10151117
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - NPC
+      abis:
+        - name: TraitRegistry
+          file: TraitRegistry/abis/TraitRegistry.json
+      eventHandlers:
+        - event: TraitRegistered(uint256,bytes,string)
+          handler: handleTraitRegistered
+      file: TraitRegistry/TraitRegistry.wasm
