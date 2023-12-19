@@ -4,7 +4,7 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "goldsky subgraph deploy npc-graph-goerli/$V --path .",
+    "deploy": "graph build && goldsky subgraph deploy npc-graph-goerli/$V --path .",
     "create-local": "graph create --node http://localhost:8020/ npc-graph",
     "remove-local": "graph remove --node http://localhost:8020/ npc-graph",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 npc-graph",

@@ -6,9 +6,9 @@ dataSources:
     name: NFT
     network: goerli
     source:
-      address: "0x4dD30A31962431da2e7359de2527eeD09902B65F"
+      address: "0xC2c16A16Bcb774663a84C44a960693E73F273617"
       abi: NFT
-      startBlock: 10151117
+      startBlock: 10000000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -28,7 +28,7 @@ dataSources:
     source:
       address: "0x000000006551c19487814612e58FE06813775758"
       abi: ERC6551Registry
-      startBlock: 10151117
+      startBlock: 10000000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -47,15 +47,16 @@ dataSources:
     name: TraitRegistry
     network: goerli
     source:
-      address: "0x26431F48C445A04bb526FE403247DEafb0006206"
+      address: "0x810cdD881Db44eE29747CB44516fD69185e02b2F"
       abi: TraitRegistry
-      startBlock: 10151117
+      startBlock: 10000000
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - NPC
+        - Trait
       abis:
         - name: TraitRegistry
           file: TraitRegistry/abis/TraitRegistry.json

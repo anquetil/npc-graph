@@ -7,7 +7,8 @@ import {
 import {  Address, BigInt } from "@graphprotocol/graph-ts";
 
 export function handleAccountCreated(event: ERC6551AccountCreatedEvent): void {
-   if (event.params.tokenContract == Address.fromString("0x4dD30A31962431da2e7359de2527eeD09902B65F")){
+   // NFT721 contract
+   if (event.params.tokenContract == Address.fromString("0xC2c16A16Bcb774663a84C44a960693E73F273617")){
       const npc = loadOrCreateNPC(event.params.tokenId)
       npc.deployed = true;
       npc.TBAAddress = event.params.account;
