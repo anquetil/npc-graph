@@ -8,6 +8,7 @@ import {
   OwnedTrait
 } from "../generated/schema"
 import {  Address, BigInt } from "@graphprotocol/graph-ts";
+import { loadOrCreateNPC } from "./ERC6551Registry";
 
 export function handleTraitRegistered(event: TraitRegisteredEvent): void {
   const trait = loadOrCreateTrait(event.params.traitId)
@@ -33,24 +34,31 @@ function transferTraitOwnership(from: Address, to: Address, id: BigInt, value: B
 }
 
 function increaseTraitQuantity(to: Address, id: BigInt, value: BigInt): void {
-   const concatID = to.toString().concat('-').concat(id.toString())
+   const concatID = to.toHexString().concat('-').concat(id.toString())
    let ownedTrait = OwnedTrait.load(concatID)
-   if (ownedTrait == null) { 
-      ownedTrait = new OwnedTrait(id.toString())
+   if (ownedTrait == null) { // NPC owns 0 of this trait so far, so need to add an OT object
+      ownedTrait = new OwnedTrait(concatID)
       ownedTrait.quantity = value.toI32();
+      ownedTrait.save();
+      
+      const npc = loadOrCreateNPC(to)
+      const newOwnedTraits = npc.ownedTraits
+      newOwnedTraits.push(concatID)
+      npc.ownedTraits = newOwnedTraits;
+      npc.save();
    } else {
       ownedTrait.quantity += value.toI32(); 
+      ownedTrait.save();
    }
-   ownedTrait.save();
    return;
 }
 
 function reduceTraitQuantiy(from: Address, id: BigInt, value: BigInt): void {
-   const concatID = from.toString().concat('-').concat(id.toString())
+   const concatID = from.toHexString().concat('-').concat(id.toString());
    let ownedTrait = OwnedTrait.load(concatID)
-   if (ownedTrait) { // if null, don't track since it doesn't belong to TBA
+   if (ownedTrait) { // if null, don't track since it didn't't belong to an nPC before
       ownedTrait.quantity -= value.toI32();
-      ownedTrait.save()
+      ownedTrait.save();
    }
    return;
 }

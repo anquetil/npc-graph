@@ -3,6 +3,7 @@ type NPC @entity {
    tokenID: BigInt! 
    owner: Bytes! # address
    deployed: Boolean!
+   ownedTraits: [OwnedTrait!]!
 }
 
 type Trait @entity {

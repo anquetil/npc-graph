@@ -18,6 +18,8 @@ dataSources:
       abis:
         - name: NFT
           file: ./abis/NFT.json
+        - name: ERC6551Registry # need it here to read function
+          file: ./abis/ERC6551Registry.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer

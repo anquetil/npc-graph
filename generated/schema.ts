@@ -88,6 +88,19 @@ export class NPC extends Entity {
   set deployed(value: boolean) {
     this.set("deployed", Value.fromBoolean(value));
   }
+
+  get ownedTraits(): Array<string> {
+    let value = this.get("ownedTraits");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set ownedTraits(value: Array<string>) {
+    this.set("ownedTraits", Value.fromStringArray(value));
+  }
 }
 
 export class Trait extends Entity {
