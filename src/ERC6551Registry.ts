@@ -7,16 +7,14 @@ import {
 import {  Address, BigInt } from "@graphprotocol/graph-ts";
 
 export function handleAccountCreated(event: ERC6551AccountCreatedEvent): void {
-   // NFT721 contract
-   if (event.params.tokenContract == Address.fromString("0xC2c16A16Bcb774663a84C44a960693E73F273617")){
-      const npc = loadOrCreateNPC(event.params.tokenId)
+   if (event.params.tokenContract == Address.fromString("0xC2c16A16Bcb774663a84C44a960693E73F273617")){ // need to change with new deploys, NFT contract
+      const npc = loadOrCreateNPC(event.params.account)
       npc.deployed = true;
-      npc.TBAAddress = event.params.account;
       npc.save();
    }
 }
 
-export function loadOrCreateNPC(id: BigInt): NPC{
+export function loadOrCreateNPC(id: Address): NPC{
    let npc = NPC.load(id.toString())
    if (npc == null) { // should never happen
       return new NPC(id.toString())

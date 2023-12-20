@@ -8,7 +8,7 @@ dataSources:
     source:
       address: "0xC2c16A16Bcb774663a84C44a960693E73F273617"
       abi: NFT
-      startBlock: 10000000
+      startBlock: 10218286
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -28,7 +28,7 @@ dataSources:
     source:
       address: "0x000000006551c19487814612e58FE06813775758"
       abi: ERC6551Registry
-      startBlock: 10000000
+      startBlock: 10218286
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -44,12 +44,12 @@ dataSources:
           handler: handleAccountCreated
       file: ERC6551Registry/ERC6551Registry.wasm
   - kind: ethereum
-    name: TraitRegistry
+    name: ERC1155Rails
     network: goerli
     source:
       address: "0x810cdD881Db44eE29747CB44516fD69185e02b2F"
-      abi: TraitRegistry
-      startBlock: 10000000
+      abi: ERC1155Rails
+      startBlock: 10218286
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -57,10 +57,15 @@ dataSources:
       entities:
         - NPC
         - Trait
+        - OwnedTrait
       abis:
-        - name: TraitRegistry
-          file: TraitRegistry/abis/TraitRegistry.json
+        - name: ERC1155Rails
+          file: ERC1155Rails/abis/ERC1155Rails.json
       eventHandlers:
         - event: TraitRegistered(uint256,bytes,string)
           handler: handleTraitRegistered
-      file: TraitRegistry/TraitRegistry.wasm
+        - event: TransferSingle(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleTransferSingle
+        - event: TransferBatch(indexed address,indexed address,indexed address,uint256[],uint256[])
+          handler: handleTransferBatch
+      file: ERC1155Rails/ERC1155Rails.wasm

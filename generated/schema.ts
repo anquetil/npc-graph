@@ -50,6 +50,19 @@ export class NPC extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get tokenID(): BigInt {
+    let value = this.get("tokenID");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set tokenID(value: BigInt) {
+    this.set("tokenID", Value.fromBigInt(value));
+  }
+
   get owner(): Bytes {
     let value = this.get("owner");
     if (!value || value.kind == ValueKind.NULL) {
@@ -74,23 +87,6 @@ export class NPC extends Entity {
 
   set deployed(value: boolean) {
     this.set("deployed", Value.fromBoolean(value));
-  }
-
-  get TBAAddress(): Bytes | null {
-    let value = this.get("TBAAddress");
-    if (!value || value.kind == ValueKind.NULL) {
-      return null;
-    } else {
-      return value.toBytes();
-    }
-  }
-
-  set TBAAddress(value: Bytes | null) {
-    if (!value) {
-      this.unset("TBAAddress");
-    } else {
-      this.set("TBAAddress", Value.fromBytes(<Bytes>value));
-    }
   }
 }
 
@@ -157,5 +153,58 @@ export class Trait extends Entity {
 
   set name(value: string) {
     this.set("name", Value.fromString(value));
+  }
+}
+
+export class OwnedTrait extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save OwnedTrait entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type OwnedTrait must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`
+      );
+      store.set("OwnedTrait", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): OwnedTrait | null {
+    return changetype<OwnedTrait | null>(store.get_in_block("OwnedTrait", id));
+  }
+
+  static load(id: string): OwnedTrait | null {
+    return changetype<OwnedTrait | null>(store.get("OwnedTrait", id));
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get quantity(): i32 {
+    let value = this.get("quantity");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set quantity(value: i32) {
+    this.set("quantity", Value.fromI32(value));
   }
 }

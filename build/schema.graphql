@@ -1,12 +1,17 @@
 type NPC @entity {
-   id: ID! # tokenID
+   id: ID! # address
+   tokenID: BigInt! 
    owner: Bytes! # address
    deployed: Boolean!
-   TBAAddress: Bytes # address, deterministic so always known, not sure how do it tbh
 }
 
 type Trait @entity {
    id: ID!
    rleBytes: Bytes!
    name: String!
-} 
+}
+
+type OwnedTrait @entity {
+   id: ID! # "npcID-traitID"
+   quantity: Int!
+}
